@@ -1,0 +1,94 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@using dailyMonthly.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@inject RateLimitService RateLimitService
+@inject AuthenticationStateProvider AuthStateProvider
+
+<PageTitle>Arama Sayfası</PageTitle>
+<h1>Günlük ve Aylık Arama Limitleri</h1>
+<input class="form-control mb-2" @bind="term" placeholder="Anahtar kelime..." />
+<button class="btn btn-primary mb-3" @onclick="OnClick">Arama Yap</button>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p role="alert" class="text-danger">@errorMessage</p>
+}
+@if (dailyRemaining <= 0)
+{
+    <p role="alert" class="text-warning">Günlük istek limitini doldurdunuz!</p>
+}
+else
+{
+    <p role="status">Kalan Günlük İstek Sayısı: @dailyRemaining</p>
+}
+@if (monthlyRemaining <= 0)
+{
+    <p role="alert" class="text-warning">Aylık istek limitini doldurdunuz!</p>
+}
+else
+{
+    <p role="status">Kalan Aylık İstek Sayısı: @monthlyRemaining</p>
+}
+@if (items?.Length > 0)
+{
+    <ul>
+        @foreach (var item in items)
+        {
+            <li>@item</li>
+        }
+    </ul>
+}
+
+@code {
+    private int dailyRemaining = 5;
+    private int monthlyRemaining = 20;
+    private string? errorMessage;
+    private string term = "örnek arama";
+    private string[]? items;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshUsageAsync();
+    }
+
+    private async Task RefreshUsageAsync()
+    {
+        try
+        {
+            var auth = await AuthStateProvider.GetAuthenticationStateAsync();
+            var usage = await RateLimitService.GetUsageAsync(auth.User);
+            dailyRemaining = usage.DayRemaining;
+            monthlyRemaining = usage.MonthRemaining;
+        }
+        catch
+        {
+            errorMessage = "Kullanıcı bilgileri alınamadı.";
+        }
+    }
+
+    private async Task OnClick()
+    {
+        errorMessage = null;
+        items = Array.Empty<string>();
+        try
+        {
+            var auth = await AuthStateProvider.GetAuthenticationStateAsync();
+            var result = await RateLimitService.TrySearchAsync(auth.User, term);
+            dailyRemaining = result.Usage.DayRemaining;
+            monthlyRemaining = result.Usage.MonthRemaining;
+            items = result.Items;
+        }
+        catch (RateLimitService.LimitExceededException ex)
+        {
+            // Display 429 message
+            errorMessage = ex.Message;
+            dailyRemaining = ex.Usage.DayRemaining;
+            monthlyRemaining = ex.Usage.MonthRemaining;
+        }
+        catch
+        {
+            errorMessage = "İstek gönderilemedi.";
+        }
+    }
+}
