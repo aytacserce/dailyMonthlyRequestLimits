@@ -11,6 +11,10 @@ It has Blazor Identity for Register / Login flow and user based request limit ch
 
 ---
 
+<img width="600px" src="https://github.com/aytacserce/dailyMonthlyRequestLimits/blob/main/dailyMonthly-screenshot-2.png?raw=true" />
+
+---
+
 ### :hammer_and_wrench: Languages and Tools Used:
 - C#
 - .NET 9
