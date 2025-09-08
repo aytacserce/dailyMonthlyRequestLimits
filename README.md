@@ -7,7 +7,7 @@ It has Blazor Identity for Register / Login flow and user based request limit ch
 
 ---
 
-
+<img width="600px" src="https://github.com/aytacserce/dailyMonthlyRequestLimits/blob/main/dailyMonthly-screenshot.png?raw=true" />
 
 ---
 
