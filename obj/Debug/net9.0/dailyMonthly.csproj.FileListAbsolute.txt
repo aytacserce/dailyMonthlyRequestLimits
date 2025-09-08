@@ -391,3 +391,4 @@ C:\aytac\creativeSolution\dailyMonthly\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAn
 C:\aytac\creativeSolution\dailyMonthly\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\aytac\creativeSolution\dailyMonthly\obj\Debug\net9.0\dailyMonthly.RazorAssemblyInfo.cache
 C:\aytac\creativeSolution\dailyMonthly\obj\Debug\net9.0\dailyMonthly.RazorAssemblyInfo.cs
+C:\aytac\creativeSolution\dailyMonthly\obj\Debug\net9.0\dailyMonthly.sourcelink.json

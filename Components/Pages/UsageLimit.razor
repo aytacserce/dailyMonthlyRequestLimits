@@ -7,8 +7,11 @@
 
 <PageTitle>Arama Sayfası</PageTitle>
 <h1>Günlük ve Aylık Arama Limitleri</h1>
+
 <input class="form-control mb-2" @bind="term" placeholder="Anahtar kelime..." />
-<button class="btn btn-primary mb-3" @onclick="OnClick">Arama Yap</button>
+<button class="btn btn-primary mb-3" @onclick="OnClick" disabled="@(dailyRemaining <= 0 || monthlyRemaining <= 0)">
+    Arama Yap
+</button>
 
 @if (!string.IsNullOrEmpty(errorMessage))
 {
@@ -81,7 +84,6 @@ else
         }
         catch (RateLimitService.LimitExceededException ex)
         {
-            // Display 429 message
             errorMessage = ex.Message;
             dailyRemaining = ex.Usage.DayRemaining;
             monthlyRemaining = ex.Usage.MonthRemaining;
