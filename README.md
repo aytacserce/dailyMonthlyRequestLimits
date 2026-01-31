@@ -1,4 +1,5 @@
 # dailyMonthlyRequestLimits
+
 This is a C# demo project in which, search requests are made and user is informed about daily and monthly search limits
 
 ---
@@ -16,8 +17,11 @@ It has Blazor Identity for Register / Login flow and user based request limit ch
 ---
 
 ### :hammer_and_wrench: Languages and Tools Used:
+
 - C#
-- .NET 9
-- Blazor
-- EF Core
+- ASP.NET Core 9
+- Blazor Server
+- Entity Framework Core
+- ASP.NET Identity
 - SQLite
+- Dependency Injection

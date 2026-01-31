@@ -1,0 +1,31 @@
+## Build results
+bin/
+obj/
+
+## Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider
+.idea/
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Logs
+*.log
+
+## SQLite database
+*.db
+*.db-shm
+*.db-wal
+
+## Publish output
+publish/
+
+## Secrets
+appsettings.Development.json
