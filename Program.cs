@@ -15,9 +15,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddRazorPages(); // Identity UI requires Razor Pages
 
-// EF Core (SQLite)
+// EF Core (SQL Server)
 builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=app.db"));
+    opt.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
+
 
 // Identity (with built-in UI)
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
